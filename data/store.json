@@ -1,0 +1,392 @@
+{
+  "site": {
+    "brandName": "FRANSONO",
+    "whatsappNumber": "919573424486",
+    "currency": "INR",
+    "freeShippingText": "FREE SHIPPING on all orders above ₹399",
+    "stats": [
+      {
+        "label": "Products Sold",
+        "value": "10 Crores+",
+        "icon": "https://images.bewakoof.com/web/ic-person-solid-black-mweb.png"
+      },
+      {
+        "label": "Customers Bought",
+        "value": "2 Crores+",
+        "icon": "https://images.bewakoof.com/web/ic-bag-solid-black-mweb.png"
+      }
+    ],
+    "homeCards": [
+      {
+        "section": "men",
+        "label": "MEN",
+        "image": "https://images.bewakoof.com/t640/men-s-black-venom-graphic-printed-oversized-t-shirt-651229-1731501911-1.jpg",
+        "imageName": "home-men-venom.jpg"
+      },
+      {
+        "section": "women",
+        "label": "WOMEN",
+        "image": "https://images.bewakoof.com/t640/women-s-beige-drip-graphic-printed-boyfriend-t-shirt-687568-1758530941-1.jpg",
+        "imageName": "home-women-drip.jpg"
+      }
+    ],
+    "featureCards": [
+      {
+        "title": "Official Collabs",
+        "text": "Marvel, Disney, anime and pop culture drops"
+      },
+      {
+        "title": "Heavy Duty",
+        "text": "Oversized fits, dense cotton and street-ready graphics"
+      },
+      {
+        "title": "Deals Live",
+        "text": "Bundle offers and free shipping above ₹399"
+      }
+    ]
+  },
+  "collections": {
+    "men": {
+      "crumb": "Men Clothing",
+      "title": "Clothes for Men",
+      "total": 2583,
+      "categories": [
+        "t-shirt",
+        "shirt",
+        "hoodies",
+        "joggers",
+        "jeans"
+      ],
+      "filters": {
+        "Category": [
+          "T-Shirt",
+          "Shirt",
+          "Hoodies",
+          "Joggers",
+          "Jeans"
+        ],
+        "Sizes": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "Brand": [
+          "FRANSONO",
+          "FRANSONO X Marvel",
+          "FRANSONO Heavy Duty 1.0",
+          "FRANSONO Air 1.0"
+        ],
+        "Color": [
+          "Black",
+          "Blue",
+          "Green",
+          "White",
+          "Brown"
+        ],
+        "Design": [
+          "Graphic Print",
+          "Solid",
+          "Typography",
+          "Aop",
+          "Checked"
+        ],
+        "Fit": [
+          "Oversized Fit",
+          "Regular Fit",
+          "Straight Fit",
+          "Super Loose Fit"
+        ],
+        "Type": [
+          "T-Shirt",
+          "Shirt",
+          "Hoodies",
+          "Cargo",
+          "Vest"
+        ],
+        "Tags": [
+          "men",
+          "t-shirt",
+          "marvel",
+          "graphic",
+          "oversized",
+          "green",
+          "brown",
+          "black"
+        ],
+        "Offers": [
+          "Buy 2 For 1199",
+          "Buy 3 For 1199"
+        ],
+        "Ratings": [
+          "4.5 And Above",
+          "4 And Above",
+          "0 And Above"
+        ]
+      },
+      "products": [
+        {
+          "id": "m1",
+          "gender": "men",
+          "type": "t-shirt",
+          "category": "t-shirt",
+          "brand": "FRANSONO X Marvel",
+          "name": "Men's Green Wakanda Forever Graphic Printed Oversized T-shirt",
+          "imageName": "men-wakanda-green.jpg",
+          "image": "https://images.bewakoof.com/t640/men-s-green-wakanda-forever-graphic-printed-oversized-t-shirt-637169-1739771293-1.jpg",
+          "tags": [
+            "men",
+            "t-shirt",
+            "marvel",
+            "graphic",
+            "oversized",
+            "green"
+          ],
+          "fit": "OVERSIZED FIT",
+          "rating": 4.6,
+          "price": 706,
+          "mrp": 1449,
+          "discount": "51% OFF",
+          "offer": "Buy 2 for 1199",
+          "isNew": false,
+          "active": true
+        },
+        {
+          "id": "m2",
+          "gender": "men",
+          "type": "t-shirt",
+          "category": "t-shirt",
+          "brand": "FRANSONO X Marvel",
+          "name": "Men's Brown Most Wanted Graphic Printed Oversized T-shirt",
+          "imageName": "men-deadpool-brown.jpg",
+          "image": "https://images.bewakoof.com/t640/men-s-brown-most-wanted-graphic-printed-oversized-t-shirt-629607-1753166834-1.jpg",
+          "tags": [
+            "men",
+            "t-shirt",
+            "marvel",
+            "graphic",
+            "oversized",
+            "brown"
+          ],
+          "fit": "OVERSIZED FIT",
+          "rating": 4.5,
+          "price": 660,
+          "mrp": 1299,
+          "discount": "49% OFF",
+          "offer": "Buy 2 for 1199",
+          "isNew": true,
+          "active": true
+        },
+        {
+          "id": "m3",
+          "gender": "men",
+          "type": "t-shirt",
+          "category": "t-shirt",
+          "brand": "FRANSONO X Marvel",
+          "name": "Men's Black Venom Graphic Printed Oversized T-shirt",
+          "imageName": "men-venom-black.jpg",
+          "image": "https://images.bewakoof.com/t640/men-s-black-venom-graphic-printed-oversized-t-shirt-651229-1731501911-1.jpg",
+          "tags": [
+            "men",
+            "t-shirt",
+            "marvel",
+            "graphic",
+            "oversized",
+            "black"
+          ],
+          "fit": "OVERSIZED FIT",
+          "rating": 4.5,
+          "price": 645,
+          "mrp": 1799,
+          "discount": "64% OFF",
+          "offer": "Buy 2 for 1199",
+          "isNew": false,
+          "active": true
+        }
+      ]
+    },
+    "women": {
+      "crumb": "Women Clothing",
+      "title": "Women's Clothing",
+      "total": 1335,
+      "categories": [
+        "t-shirt",
+        "pyjama",
+        "dress",
+        "hoodies",
+        "top"
+      ],
+      "filters": {
+        "Category": [
+          "T-Shirt",
+          "Pyjama",
+          "Dress",
+          "Hoodies",
+          "Top"
+        ],
+        "Sizes": [
+          "XS",
+          "S",
+          "M",
+          "L",
+          "XL"
+        ],
+        "Brand": [
+          "FRANSONO",
+          "FRANSONO X Disney",
+          "FRANSONO Heavy Duty 1.0",
+          "FRANSONO Air 1.0"
+        ],
+        "Color": [
+          "Black",
+          "Blue",
+          "White",
+          "Green",
+          "Pink"
+        ],
+        "Design": [
+          "Graphic Print",
+          "Solid",
+          "Aop",
+          "Typography",
+          "Printed"
+        ],
+        "Fit": [
+          "Oversized Fit",
+          "Regular Fit",
+          "Boyfriend Fit",
+          "Wide Leg"
+        ],
+        "Type": [
+          "T-Shirt",
+          "Pyjama",
+          "Crop",
+          "Hoodies",
+          "Jeans"
+        ],
+        "Tags": [
+          "women",
+          "t-shirt",
+          "typography",
+          "boyfriend",
+          "beige",
+          "graphic",
+          "oversized",
+          "green",
+          "disney",
+          "orange",
+          "c"
+        ],
+        "Offers": [
+          "Buy 2 For 1099",
+          "Buy 3 For 1199"
+        ],
+        "Ratings": [
+          "4.5 And Above",
+          "4 And Above",
+          "3 And Above"
+        ]
+      },
+      "products": [
+        {
+          "id": "w1",
+          "gender": "women",
+          "type": "t-shirt",
+          "category": "t-shirt",
+          "brand": "FRANSONO",
+          "name": "Women's Beige Drip Typography Boyfriend T-shirt",
+          "imageName": "women-drip-beige.jpg",
+          "image": "https://images.bewakoof.com/t640/women-s-beige-drip-graphic-printed-boyfriend-t-shirt-687568-1758530941-1.jpg",
+          "tags": [
+            "women",
+            "t-shirt",
+            "typography",
+            "boyfriend",
+            "beige"
+          ],
+          "fit": "BOYFRIEND FIT",
+          "rating": 4.5,
+          "price": 409,
+          "mrp": 1299,
+          "discount": "70% OFF",
+          "offer": "Buy 2 for 1099",
+          "isNew": true,
+          "active": true
+        },
+        {
+          "id": "w2",
+          "gender": "women",
+          "type": "t-shirt",
+          "category": "t-shirt",
+          "brand": "FRANSONO",
+          "name": "Women's Green The Panda Way Graphic Printed Oversized T-shirt",
+          "imageName": "women-panda-green.jpg",
+          "image": "https://images.bewakoof.com/t640/women-s-green-the-panda-way-graphic-printed-oversized-t-shirt-581312-1737092527-1.jpg",
+          "tags": [
+            "women",
+            "t-shirt",
+            "graphic",
+            "oversized",
+            "green"
+          ],
+          "fit": "OVERSIZED FIT",
+          "rating": 4.7,
+          "price": 554,
+          "mrp": 1499,
+          "discount": "63% OFF",
+          "offer": "Buy 2 for 1099",
+          "isNew": false,
+          "active": true
+        },
+        {
+          "id": "w3",
+          "gender": "women",
+          "type": "t-shirt",
+          "category": "t-shirt",
+          "brand": "FRANSONO X Disney",
+          "name": "Women's Orange Fresh As A Daisy Graphic Printed Boyfriend T-shirt",
+          "imageName": "women-daisy-orange.jpg",
+          "image": "https://images.bewakoof.com/t640/women-s-orange-fresh-as-a-daisy-graphic-printed-boyfriend-t-shirt-638829-1738331416-1.jpg",
+          "tags": [
+            "women",
+            "t-shirt",
+            "disney",
+            "graphic",
+            "boyfriend",
+            "orange"
+          ],
+          "fit": "BOYFRIEND FIT",
+          "rating": 4.5,
+          "price": 540,
+          "mrp": 1299,
+          "discount": "58% OFF",
+          "offer": "Buy 2 for 1099",
+          "isNew": false,
+          "active": true
+        },
+        {
+          "id": "cs",
+          "gender": "men",
+          "type": "dd",
+          "category": "ss",
+          "brand": "FRANSONO",
+          "name": "AdminGPON",
+          "imageName": "cx.png",
+          "image": "store-images/cx.png",
+          "tags": [
+            "c"
+          ],
+          "fit": "s",
+          "rating": 4.5,
+          "price": 499,
+          "mrp": 999,
+          "discount": "50% OFF",
+          "offer": "Buy 2 for 1199",
+          "isNew": false,
+          "active": true
+        }
+      ]
+    }
+  }
+}
