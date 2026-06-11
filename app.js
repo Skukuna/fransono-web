@@ -1,215 +1,11 @@
-const DATA = {
-  men: {
-    crumb: "Men Clothing",
-    title: "Clothes for Men",
-    total: 2583,
-    categories: ["t-shirt", "shirt", "hoodies", "joggers", "jeans"],
-    filters: {
-      Category: ["T-Shirt", "Shirt", "Hoodies", "Joggers", "Jeans"],
-      Sizes: ["XS", "S", "M", "L", "XL"],
-      Brand: ["FRANSONO", "FRANSONO X Marvel", "FRANSONO Heavy Duty 1.0", "FRANSONO Air 1.0"],
-      Color: ["Black", "Blue", "Green", "White", "Brown"],
-      Design: ["Graphic Print", "Solid", "Typography", "Aop", "Checked"],
-      Fit: ["Oversized Fit", "Regular Fit", "Straight Fit", "Super Loose Fit"],
-      Offers: ["Buy 2 For 1199", "Buy 3 For 1199"],
-      Ratings: ["4.5 And Above", "4 And Above", "0 And Above"]
-    },
-    products: [
-      {
-        id: "m1",
-        brand: "FRANSONO X Marvel",
-        name: "Men's Green Wakanda Forever Graphic Printed Oversized T-shirt",
-        image: "https://images.bewakoof.com/t640/men-s-green-wakanda-forever-graphic-printed-oversized-t-shirt-637169-1739771293-1.jpg",
-        fit: "OVERSIZED FIT",
-        rating: 4.6,
-        price: 706,
-        mrp: 1449,
-        discount: "51% OFF",
-        offer: "Buy 2 for 1199",
-        category: "t-shirt",
-        isNew: false
-      },
-      {
-        id: "m2",
-        brand: "FRANSONO X Marvel",
-        name: "Men's Brown Most Wanted Graphic Printed Oversized T-shirt",
-        image: "https://images.bewakoof.com/t640/men-s-brown-most-wanted-graphic-printed-oversized-t-shirt-629607-1753166834-1.jpg",
-        fit: "OVERSIZED FIT",
-        rating: 4.5,
-        price: 660,
-        mrp: 1299,
-        discount: "49% OFF",
-        offer: "Buy 2 for 1199",
-        category: "t-shirt",
-        isNew: true
-      },
-      {
-        id: "m3",
-        brand: "FRANSONO X Marvel",
-        name: "Men's Black Venom Graphic Printed Oversized T-shirt",
-        image: "https://images.bewakoof.com/t640/men-s-black-venom-graphic-printed-oversized-t-shirt-651229-1731501911-1.jpg",
-        fit: "OVERSIZED FIT",
-        rating: 4.5,
-        price: 645,
-        mrp: 1799,
-        discount: "64% OFF",
-        offer: "Buy 2 for 1199",
-        category: "t-shirt",
-        isNew: false
-      },
-      {
-        id: "m4",
-        brand: "FRANSONO",
-        name: "Men's Brick Red Magar Much Graphic Printed T-shirt",
-        image: "https://images.bewakoof.com/t640/men-s-brick-red-magar-much-graphic-printed-t-shirt-677649-1746769064-1.jpg",
-        fit: "REGULAR FIT",
-        rating: 4.5,
-        price: 499,
-        mrp: 999,
-        discount: "50% OFF",
-        offer: "Buy 3 for 1199",
-        category: "t-shirt",
-        isNew: true
-      },
-      {
-        id: "m5",
-        brand: "FRANSONO X Marvel",
-        name: "Men's Black Ghost Rider Spirit of Vengeance Oversized T-shirt",
-        image: "https://images.bewakoof.com/t640/men-s-black-ghost-rider-spirit-of-vengeance-graphic-printed-oversized-t-shirt-604148-1730987047-1.jpg",
-        fit: "OVERSIZED FIT",
-        rating: 4.4,
-        price: 799,
-        mrp: 1799,
-        discount: "56% OFF",
-        offer: "Buy 2 for 1199",
-        category: "t-shirt",
-        isNew: false
-      },
-      {
-        id: "m6",
-        brand: "FRANSONO X Marvel",
-        name: "Men's Red Friendly Neighbour Graphic Printed Oversized T-shirt",
-        image: "https://images.bewakoof.com/t640/men-s-red-friendly-neighbour-graphic-printed-oversized-t-shirt-660978-1738573645-1.jpg",
-        fit: "OVERSIZED FIT",
-        rating: 4.6,
-        price: 749,
-        mrp: 1499,
-        discount: "50% OFF",
-        offer: "Buy 2 for 1199",
-        category: "t-shirt",
-        isNew: true
-      }
-    ]
-  },
-  women: {
-    crumb: "Women Clothing",
-    title: "Women's Clothing",
-    total: 1335,
-    categories: ["t-shirt", "pyjama", "dress", "hoodies", "top"],
-    filters: {
-      Category: ["T-Shirt", "Pyjama", "Dress", "Hoodies", "Top"],
-      Sizes: ["XS", "S", "M", "L", "XL"],
-      Brand: ["FRANSONO", "FRANSONO X Disney", "FRANSONO Heavy Duty 1.0", "FRANSONO Air 1.0"],
-      Color: ["Black", "Blue", "White", "Green", "Pink"],
-      Design: ["Graphic Print", "Solid", "Aop", "Typography", "Printed"],
-      Fit: ["Oversized Fit", "Regular Fit", "Boyfriend Fit", "Wide Leg"],
-      Offers: ["Buy 2 For 1099", "Buy 3 For 1199"],
-      Ratings: ["4.5 And Above", "4 And Above", "3 And Above"]
-    },
-    products: [
-      {
-        id: "w1",
-        brand: "FRANSONO",
-        name: "Women's Beige Drip Typography Boyfriend T-shirt",
-        image: "https://images.bewakoof.com/t640/women-s-beige-drip-graphic-printed-boyfriend-t-shirt-687568-1758530941-1.jpg",
-        fit: "BOYFRIEND FIT",
-        rating: 4.5,
-        price: 409,
-        mrp: 1299,
-        discount: "70% OFF",
-        offer: "Buy 2 for 1099",
-        category: "t-shirt",
-        isNew: true
-      },
-      {
-        id: "w2",
-        brand: "FRANSONO",
-        name: "Women's Green The Panda Way Graphic Printed Oversized T-shirt",
-        image: "https://images.bewakoof.com/t640/women-s-green-the-panda-way-graphic-printed-oversized-t-shirt-581312-1737092527-1.jpg",
-        fit: "OVERSIZED FIT",
-        rating: 4.7,
-        price: 554,
-        mrp: 1499,
-        discount: "63% OFF",
-        offer: "Buy 2 for 1099",
-        category: "t-shirt",
-        isNew: false
-      },
-      {
-        id: "w3",
-        brand: "FRANSONO X Disney",
-        name: "Women's Orange Fresh As A Daisy Graphic Printed Boyfriend T-shirt",
-        image: "https://images.bewakoof.com/t640/women-s-orange-fresh-as-a-daisy-graphic-printed-boyfriend-t-shirt-638829-1738331416-1.jpg",
-        fit: "BOYFRIEND FIT",
-        rating: 4.5,
-        price: 540,
-        mrp: 1299,
-        discount: "58% OFF",
-        offer: "Buy 2 for 1099",
-        category: "t-shirt",
-        isNew: false
-      },
-      {
-        id: "w4",
-        brand: "FRANSONO",
-        name: "Women's Mellow Rose Pink Awesome Typography Boyfriend T-shirt",
-        image: "https://images.bewakoof.com/t640/women-s-mellow-rose-pink-awesome-graphic-printed-boyfriend-t-shirt-687587-1758525046-1.jpg",
-        fit: "BOYFRIEND FIT",
-        rating: 4.4,
-        price: 499,
-        mrp: 1299,
-        discount: "62% OFF",
-        offer: "Buy 3 for 1199",
-        category: "t-shirt",
-        isNew: true
-      },
-      {
-        id: "w5",
-        brand: "FRANSONO",
-        name: "Women's Beige Sarcasm Typography Boyfriend T-shirt",
-        image: "https://images.bewakoof.com/t640/women-s-beige-sarcasm-graphic-printed-boyfriend-t-shirt-685185-1752228595-1.jpg",
-        fit: "BOYFRIEND FIT",
-        rating: 4.3,
-        price: 599,
-        mrp: 1299,
-        discount: "54% OFF",
-        offer: "Buy 2 for 1099",
-        category: "top",
-        isNew: false
-      },
-      {
-        id: "w6",
-        brand: "FRANSONO",
-        name: "Women's Caramel Orange Vibe Garden Graphic Printed Boyfriend T-shirt",
-        image: "https://images.bewakoof.com/t640/women-s-caramel-orange-vibe-garden-graphic-printed-boyfriend-t-shirt-666782-1744194441-1.jpg",
-        fit: "BOYFRIEND FIT",
-        rating: 4.6,
-        price: 699,
-        mrp: 1499,
-        discount: "53% OFF",
-        offer: "Buy 2 for 1099",
-        category: "t-shirt",
-        isNew: true
-      }
-    ]
-  }
-};
+﻿let DATA = null;
 
 const state = {
   section: "men",
   query: "",
   category: "all",
   sort: "popular",
+  filters: {},
   wishlist: new Set(),
   cart: []
 };
@@ -230,18 +26,86 @@ const nodes = {
   checkoutForm: document.querySelector("#checkoutForm")
 };
 
+function collectionData(section = state.section) {
+  return DATA.collections[section];
+}
+
+function allProducts() {
+  return Object.values(DATA.collections).flatMap((collection) => collection.products);
+}
+
 function rupees(value) {
   return `\u20B9${value.toLocaleString("en-IN")}`;
 }
 
+function normalize(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function valuesMatch(productValues, selectedValue) {
+  const selected = normalize(selectedValue);
+  return productValues.map(normalize).some((value) => value === selected || value.includes(selected) || selected.includes(value));
+}
+
+function ratingThreshold(value) {
+  const match = String(value).match(/[\d.]+/);
+  return match ? Number(match[0]) : 0;
+}
+
+function productMatchesFilter(product, group, selectedValue) {
+  const key = normalize(group);
+  const tags = product.tags || [];
+
+  if (key === "category") return valuesMatch([product.category, product.type, ...tags], selectedValue);
+  if (key === "brand") return valuesMatch([product.brand], selectedValue);
+  if (key === "fit") return valuesMatch([product.fit, ...tags], selectedValue);
+  if (key === "type") return valuesMatch([product.type, product.category, ...tags], selectedValue);
+  if (key === "offers") return valuesMatch([product.offer, ...tags], selectedValue);
+  if (key === "ratings") return Number(product.rating || 0) >= ratingThreshold(selectedValue);
+  if (key === "sizes") return valuesMatch([...(product.sizes || []), ...tags], selectedValue);
+  if (key === "tags") return valuesMatch(tags, selectedValue);
+
+  return valuesMatch([product[key], ...tags], selectedValue);
+}
+
+function renderSiteSettings() {
+  const site = DATA.site;
+  document.title = `${site.brandName} Storefront`;
+  document.querySelector(".brand span").textContent = site.brandName;
+  document.querySelector(".hero-brand").textContent = site.brandName;
+  document.querySelector(".shipping-band span").textContent = site.freeShippingText;
+
+  document.querySelector("#trustTicker").innerHTML = site.stats.map((stat) => `
+    <span><img src="${stat.icon}" alt="" /> <b>${stat.value}</b> ${stat.label}</span>
+  `).join("");
+
+  document.querySelector(".hero-cards").innerHTML = site.homeCards.map((card) => `
+    <button class="shop-card" data-section="${card.section}">
+      <img src="${card.image}" alt="${card.label} fashion" />
+      <span>${card.label}</span>
+    </button>
+  `).join("");
+
+  document.querySelector(".category-band").innerHTML = site.featureCards.map((card) => `
+    <article>
+      <strong>${card.title}</strong>
+      <span>${card.text}</span>
+    </article>
+  `).join("");
+}
+
 function productsForView() {
-  let items = [...DATA[state.section].products];
+  let items = [...collectionData().products].filter((item) => item.active !== false);
   if (state.category !== "all") {
     items = items.filter((item) => item.category === state.category);
   }
+  Object.entries(state.filters).forEach(([group, values]) => {
+    if (!values.length) return;
+    items = items.filter((item) => values.some((value) => productMatchesFilter(item, group, value)));
+  });
   if (state.query) {
     const query = state.query.toLowerCase();
-    items = items.filter((item) => `${item.brand} ${item.name}`.toLowerCase().includes(query));
+    items = items.filter((item) => `${item.brand} ${item.name} ${(item.tags || []).join(" ")}`.toLowerCase().includes(query));
   }
   if (state.sort === "high") items.sort((a, b) => b.price - a.price);
   if (state.sort === "low") items.sort((a, b) => a.price - b.price);
@@ -250,7 +114,7 @@ function productsForView() {
 }
 
 function renderFilters() {
-  const groups = DATA[state.section].filters;
+  const groups = collectionData().filters;
   nodes.filterGroups.innerHTML = Object.entries(groups)
     .map(([group, values]) => `
       <section class="filter-group">
@@ -258,7 +122,7 @@ function renderFilters() {
         <div class="filter-options">
           ${values.map((value) => `
             <label>
-              <input type="checkbox" />
+              <input type="checkbox" data-filter-group="${group}" data-filter-value="${value}" ${(state.filters[group] || []).includes(value) ? "checked" : ""} />
               <span>${value}</span>
             </label>
           `).join("")}
@@ -269,7 +133,7 @@ function renderFilters() {
 }
 
 function renderChips() {
-  const categories = ["all", ...DATA[state.section].categories];
+  const categories = ["all", ...collectionData().categories];
   nodes.chips.innerHTML = categories
     .map((category) => `
       <button class="${state.category === category ? "is-active" : ""}" data-category="${category}">
@@ -281,7 +145,7 @@ function renderChips() {
 
 function renderProducts() {
   const items = productsForView();
-  nodes.count.textContent = `${items.length || DATA[state.section].total} Products`;
+  nodes.count.textContent = `${items.length} Products`;
   nodes.grid.innerHTML = items.map((item) => `
     <article class="product-card">
       <div class="product-media">
@@ -306,7 +170,7 @@ function renderProducts() {
 }
 
 function renderCollection() {
-  const collection = DATA[state.section];
+  const collection = collectionData();
   nodes.title.textContent = collection.title;
   nodes.crumb.textContent = collection.crumb;
   document.querySelectorAll(".main-nav a").forEach((link) => {
@@ -391,15 +255,16 @@ function redirectToWhatsAppOrder(customer) {
     return;
   }
 
-  const phoneNumber = "919573424486";
+  const phoneNumber = DATA.site.whatsappNumber;
   const message = encodeURIComponent(buildWhatsAppOrderMessage(customer));
   window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
 }
 
 function setSection(section) {
-  if (!DATA[section]) return;
+  if (!DATA.collections[section]) return;
   state.section = section;
   state.category = "all";
+  state.filters = {};
   state.query = "";
   nodes.search.value = "";
   renderCollection();
@@ -417,6 +282,16 @@ document.addEventListener("click", (event) => {
     renderProducts();
   }
 
+  const filterInput = event.target.closest("[data-filter-group]");
+  if (filterInput) {
+    const group = filterInput.dataset.filterGroup;
+    const value = filterInput.dataset.filterValue;
+    const selected = new Set(state.filters[group] || []);
+    filterInput.checked ? selected.add(value) : selected.delete(value);
+    state.filters[group] = [...selected];
+    renderProducts();
+  }
+
   const wishlistButton = event.target.closest("[data-wishlist]");
   if (wishlistButton) {
     const id = wishlistButton.dataset.wishlist;
@@ -426,8 +301,7 @@ document.addEventListener("click", (event) => {
 
   const cartButton = event.target.closest("[data-cart]");
   if (cartButton) {
-    const allProducts = Object.values(DATA).flatMap((collection) => collection.products);
-    const product = allProducts.find((item) => item.id === cartButton.dataset.cart);
+    const product = allProducts().find((item) => item.id === cartButton.dataset.cart);
     if (product) state.cart.push(product);
     renderCart();
     document.body.classList.add("drawer-open");
@@ -443,7 +317,7 @@ document.addEventListener("click", (event) => {
 document.querySelectorAll(".main-nav a").forEach((link) => {
   link.addEventListener("click", (event) => {
     const section = link.hash.replace("#", "");
-    if (DATA[section]) {
+    if (DATA.collections[section]) {
       event.preventDefault();
       setSection(section);
     }
@@ -493,9 +367,26 @@ document.querySelector("#mobileSort").addEventListener("click", () => {
 
 let tick = 0;
 setInterval(() => {
+  if (!DATA) return;
   tick = Number(!tick);
   document.querySelector("#trustTicker").style.transform = `translateX(-${tick * 100}vw)`;
 }, 2600);
 
-renderCollection();
-renderCart();
+async function initStorefront() {
+  nodes.grid.innerHTML = `<p class="empty">Loading store data...</p>`;
+
+  try {
+    const response = await fetch("./data/store.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Could not load data/store.json (${response.status})`);
+    DATA = await response.json();
+    renderSiteSettings();
+    renderCollection();
+    renderCart();
+  } catch (error) {
+    nodes.grid.innerHTML = `<p class="empty">Store data failed to load. Check data/store.json and run the site from a local server.</p>`;
+    console.error(error);
+  }
+}
+
+initStorefront();
+
