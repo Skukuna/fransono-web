@@ -226,7 +226,8 @@ const nodes = {
   sort: document.querySelector("#sortSelect"),
   cartCount: document.querySelector("#cartCount"),
   cartItems: document.querySelector("#cartItems"),
-  cartTotal: document.querySelector("#cartTotal")
+  cartTotal: document.querySelector("#cartTotal"),
+  checkoutForm: document.querySelector("#checkoutForm")
 };
 
 function rupees(value) {
@@ -335,18 +336,30 @@ function renderCart() {
     : `<p class="empty">Your bag is empty. Add a few favorites from the grid.</p>`;
 }
 
-function buildWhatsAppOrderMessage() {
+function buildWhatsAppOrderMessage(customer = {}) {
   const total = state.cart.reduce((sum, item) => sum + item.price, 0);
   const lines = [
     "Hello FRANSONO, I want to place this order:",
     ""
   ];
 
+  if (customer.name) {
+    lines.push("Customer Details:");
+    lines.push(`Name: ${customer.name}`);
+    lines.push(`Mobile: ${customer.phone}`);
+    lines.push(`Address: ${customer.address}`);
+    lines.push(`City: ${customer.city}`);
+    lines.push(`Pincode: ${customer.pincode}`);
+    if (customer.note) lines.push(`Note: ${customer.note}`);
+    lines.push("");
+  }
+
+  lines.push("Order Details:");
+
   state.cart.forEach((item, index) => {
     lines.push(`${index + 1}. ${item.brand}`);
     lines.push(item.name);
     lines.push(`Price: ${rupees(item.price)}`);
-    lines.push(`Image: ${item.image}`);
     lines.push("");
   });
 
@@ -356,14 +369,30 @@ function buildWhatsAppOrderMessage() {
   return lines.join("\n");
 }
 
-function redirectToWhatsAppOrder() {
+function openCheckoutDetails() {
+  if (!state.cart.length) {
+    alert("Your bag is empty. Add products before placing an order.");
+    return;
+  }
+
+  document.body.classList.remove("drawer-open");
+  document.body.classList.add("checkout-open");
+  document.querySelector("#checkoutModal").setAttribute("aria-hidden", "false");
+}
+
+function closeCheckoutDetails() {
+  document.body.classList.remove("checkout-open");
+  document.querySelector("#checkoutModal").setAttribute("aria-hidden", "true");
+}
+
+function redirectToWhatsAppOrder(customer) {
   if (!state.cart.length) {
     alert("Your bag is empty. Add products before placing an order.");
     return;
   }
 
   const phoneNumber = "919573424486";
-  const message = encodeURIComponent(buildWhatsAppOrderMessage());
+  const message = encodeURIComponent(buildWhatsAppOrderMessage(customer));
   window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
 }
 
@@ -436,8 +465,18 @@ document.querySelector("#closeFilters").addEventListener("click", () => document
 document.querySelector("#menuToggle").addEventListener("click", () => nodes.mainNav.classList.toggle("is-open"));
 document.querySelector("#cartButton").addEventListener("click", () => document.body.classList.add("drawer-open"));
 document.querySelector("#closeCart").addEventListener("click", () => document.body.classList.remove("drawer-open"));
-document.querySelector("#drawerBackdrop").addEventListener("click", () => document.body.classList.remove("drawer-open"));
-document.querySelector("#checkoutButton").addEventListener("click", redirectToWhatsAppOrder);
+document.querySelector("#drawerBackdrop").addEventListener("click", () => {
+  document.body.classList.remove("drawer-open");
+  closeCheckoutDetails();
+});
+document.querySelector("#checkoutButton").addEventListener("click", openCheckoutDetails);
+document.querySelector("#closeCheckout").addEventListener("click", closeCheckoutDetails);
+nodes.checkoutForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const formData = new FormData(nodes.checkoutForm);
+  const customer = Object.fromEntries(formData.entries());
+  redirectToWhatsAppOrder(customer);
+});
 document.querySelector("#mobileSort").addEventListener("click", () => {
   const order = ["popular", "new", "high", "low"];
   const labels = {

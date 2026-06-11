@@ -144,6 +144,46 @@
       </div>
     </aside>
 
+    <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
+      <form class="checkout-form" id="checkoutForm">
+        <div class="drawer-head">
+          <h2>Delivery Details</h2>
+          <button type="button" id="closeCheckout" aria-label="Close checkout">&times;</button>
+        </div>
+        <div class="checkout-fields">
+          <label>
+            <span>Full Name</span>
+            <input name="name" type="text" placeholder="Enter full name" required />
+          </label>
+          <label>
+            <span>Mobile Number</span>
+            <input name="phone" type="tel" placeholder="Enter mobile number" required />
+          </label>
+          <label>
+            <span>Full Address</span>
+            <textarea name="address" rows="3" placeholder="House no, street, area" required></textarea>
+          </label>
+          <div class="field-row">
+            <label>
+              <span>City</span>
+              <input name="city" type="text" placeholder="City" required />
+            </label>
+            <label>
+              <span>Pincode</span>
+              <input name="pincode" type="text" placeholder="Pincode" required />
+            </label>
+          </div>
+          <label>
+            <span>Order Note</span>
+            <textarea name="note" rows="2" placeholder="Size, color, or delivery note"></textarea>
+          </label>
+        </div>
+        <div class="checkout-submit">
+          <button type="submit">SEND ORDER ON WHATSAPP</button>
+        </div>
+      </form>
+    </div>
+
     <script src="./app.js"></script>
   </body>
 </html>
