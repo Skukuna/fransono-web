@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FRANSONO Storefront</title>
+    <link rel="preconnect" href="https://images.bewakoof.com" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="top-strip">
+      <div class="shell top-strip__inner">
+        <div class="link-row">
+          <a href="#">Offers</a>
+          <a href="#">Fanbook</a>
+          <a href="#">Download App</a>
+          <a href="#">Find a store near me</a>
+        </div>
+        <div class="link-row link-row--right">
+          <a href="#">Contact Us</a>
+          <a href="#">Track Order</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="shell header-grid">
+        <button class="icon-btn mobile-only" id="menuToggle" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <a class="brand" href="#home" aria-label="FRANSONO home">
+          <span>FRANSONO</span><sup>TM</sup>
+        </a>
+        <nav class="main-nav" id="mainNav">
+          <a href="#men">MEN</a>
+          <a href="#women">WOMEN</a>
+          <a href="#accessories">ACCESSORIES</a>
+        </nav>
+        <label class="search-box" aria-label="Search by products">
+          <span aria-hidden="true" class="search-icon"></span>
+          <input id="searchInput" type="search" placeholder="Search by products" />
+        </label>
+        <div class="header-actions">
+          <button class="login-btn">LOGIN</button>
+          <button class="plain-icon" id="wishlistButton" aria-label="Wishlist">&#9825;</button>
+          <button class="plain-icon bag" id="cartButton" aria-label="Cart">
+            <span></span>
+            <strong id="cartCount">0</strong>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="trust-band" aria-label="Store stats">
+        <div class="ticker" id="trustTicker">
+          <span><img src="https://images.bewakoof.com/web/ic-person-solid-black-mweb.png" alt="" /> <b>10 Crores+</b> Products Sold</span>
+          <span><img src="https://images.bewakoof.com/web/ic-bag-solid-black-mweb.png" alt="" /> <b>2 Crores+</b> Customers Bought</span>
+        </div>
+      </section>
+
+      <section class="shipping-band">
+        <span>FREE SHIPPING on all orders above &#8377;399</span>
+      </section>
+
+      <section class="hero" id="home">
+        <img class="hero__collab" src="https://images.bewakoof.com/web/ic-desktop-abfrl.svg" alt="Aditya Birla Fashion and Retail" />
+        <div class="hero__center">
+          <div class="hero-brand">FRANSONO</div>
+          <div class="hero__shop">SHOP FOR</div>
+          <div class="hero-cards">
+            <button class="shop-card" data-section="men">
+              <img src="https://images.bewakoof.com/t640/men-s-black-venom-graphic-printed-oversized-t-shirt-651229-1731501911-1.jpg" alt="Men graphic t-shirt" />
+              <span>MEN</span>
+            </button>
+            <button class="shop-card" data-section="women">
+              <img src="https://images.bewakoof.com/t640/women-s-beige-drip-graphic-printed-boyfriend-t-shirt-687568-1758530941-1.jpg" alt="Women graphic t-shirt" />
+              <span>WOMEN</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="category-band shell">
+        <article>
+          <strong>Official Collabs</strong>
+          <span>Marvel, Disney, anime and pop culture drops</span>
+        </article>
+        <article>
+          <strong>Heavy Duty</strong>
+          <span>Oversized fits, dense cotton and street-ready graphics</span>
+        </article>
+        <article>
+          <strong>Deals Live</strong>
+          <span>Bundle offers and free shipping above &#8377;399</span>
+        </article>
+      </section>
+
+      <section class="collection-shell shell" id="collection">
+        <div class="breadcrumb">Home <span>&gt;</span> <b id="crumbLabel">Men Clothing</b></div>
+        <div class="mobile-filterbar">
+          <button id="filterToggle">Filters</button>
+          <button id="mobileSort">Sort: Popularity</button>
+        </div>
+        <aside class="filters" id="filtersPanel" aria-label="Product filters">
+          <div class="filters__head">
+            <h2>Filters</h2>
+            <button id="closeFilters" aria-label="Close filters">&times;</button>
+          </div>
+          <div id="filterGroups"></div>
+        </aside>
+        <section class="products-area">
+          <div class="products-head">
+            <div>
+              <h1 id="collectionTitle">Clothes for Men</h1>
+              <span id="productCount">0 Products</span>
+            </div>
+            <label class="sort-select">
+              <span>Sort by :</span>
+              <select id="sortSelect">
+                <option value="popular">Popularity</option>
+                <option value="new">New Arrival</option>
+                <option value="high">Price : High to Low</option>
+                <option value="low">Price : Low to High</option>
+              </select>
+            </label>
+          </div>
+          <div class="chips" id="categoryChips"></div>
+          <div class="product-grid" id="productGrid"></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Cart drawer">
+      <div class="drawer-head">
+        <h2>My Bag</h2>
+        <button id="closeCart" aria-label="Close cart">&times;</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-summary">
+        <div><span>Total</span><strong id="cartTotal">&#8377;0</strong></div>
+        <button>PLACE ORDER</button>
+      </div>
+    </aside>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
