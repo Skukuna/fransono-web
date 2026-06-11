@@ -335,6 +335,38 @@ function renderCart() {
     : `<p class="empty">Your bag is empty. Add a few favorites from the grid.</p>`;
 }
 
+function buildWhatsAppOrderMessage() {
+  const total = state.cart.reduce((sum, item) => sum + item.price, 0);
+  const lines = [
+    "Hello FRANSONO, I want to place this order:",
+    ""
+  ];
+
+  state.cart.forEach((item, index) => {
+    lines.push(`${index + 1}. ${item.brand}`);
+    lines.push(item.name);
+    lines.push(`Price: ${rupees(item.price)}`);
+    lines.push(`Image: ${item.image}`);
+    lines.push("");
+  });
+
+  lines.push(`Total: ${rupees(total)}`);
+  lines.push("");
+  lines.push("Please confirm availability and delivery details.");
+  return lines.join("\n");
+}
+
+function redirectToWhatsAppOrder() {
+  if (!state.cart.length) {
+    alert("Your bag is empty. Add products before placing an order.");
+    return;
+  }
+
+  const phoneNumber = "919573424486";
+  const message = encodeURIComponent(buildWhatsAppOrderMessage());
+  window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
+}
+
 function setSection(section) {
   if (!DATA[section]) return;
   state.section = section;
@@ -405,6 +437,7 @@ document.querySelector("#menuToggle").addEventListener("click", () => nodes.main
 document.querySelector("#cartButton").addEventListener("click", () => document.body.classList.add("drawer-open"));
 document.querySelector("#closeCart").addEventListener("click", () => document.body.classList.remove("drawer-open"));
 document.querySelector("#drawerBackdrop").addEventListener("click", () => document.body.classList.remove("drawer-open"));
+document.querySelector("#checkoutButton").addEventListener("click", redirectToWhatsAppOrder);
 document.querySelector("#mobileSort").addEventListener("click", () => {
   const order = ["popular", "new", "high", "low"];
   const labels = {
