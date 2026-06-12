@@ -226,6 +226,26 @@ function loadWishlist() {
   }
 }
 
+function saveCart() {
+  try {
+    localStorage.setItem('fransonoCart', JSON.stringify(state.cart.map((item) => item.id)));
+  } catch (error) {
+    console.warn('Could not save cart', error);
+  }
+}
+
+function loadCart() {
+  try {
+    const stored = localStorage.getItem('fransonoCart');
+    if (stored && DATA) {
+      const ids = JSON.parse(stored);
+      state.cart = allProducts().filter((product) => ids.includes(product.id));
+    }
+  } catch (error) {
+    console.warn('Could not load cart', error);
+  }
+}
+
 function renderWishlist() {
   const items = allProducts().filter((item) => state.wishlist.has(item.id));
   const container = document.querySelector('#wishlistItems');
@@ -377,7 +397,10 @@ document.addEventListener("click", (event) => {
   const cartButton = event.target.closest("[data-cart]");
   if (cartButton) {
     const product = allProducts().find((item) => item.id === cartButton.dataset.cart);
-    if (product) state.cart.push(product);
+    if (product) {
+      state.cart.push(product);
+      saveCart();
+    }
     renderCart();
     document.body.classList.add("drawer-open");
   }
@@ -385,6 +408,7 @@ document.addEventListener("click", (event) => {
   const removeButton = event.target.closest("[data-remove]");
   if (removeButton) {
     state.cart.splice(Number(removeButton.dataset.remove), 1);
+    saveCart();
     renderCart();
   }
 });
@@ -459,6 +483,7 @@ async function initStorefront() {
     const response = await fetch("./data/store.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`Could not load data/store.json (${response.status})`);
     DATA = await response.json();
+    loadCart();
     renderSiteSettings();
     renderCollection();
     renderCart();
