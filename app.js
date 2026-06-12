@@ -167,6 +167,7 @@ function renderProducts() {
       </div>
     </article>
   `).join("") || `<p class="empty">No products matched your search.</p>`;
+  updateWishlistButtonState();
 }
 
 function renderCollection() {
@@ -198,6 +199,60 @@ function renderCart() {
       </div>
     `).join("")
     : `<p class="empty">Your bag is empty. Add a few favorites from the grid.</p>`;
+}
+
+function updateWishlistButtonState() {
+  const button = document.querySelector('#wishlistButton');
+  if (!button) return;
+  button.classList.toggle('is-active', state.wishlist.size > 0);
+}
+
+function saveWishlist() {
+  try {
+    localStorage.setItem('fransonoWishlist', JSON.stringify([...state.wishlist]));
+  } catch (error) {
+    console.warn('Could not save wishlist', error);
+  }
+}
+
+function loadWishlist() {
+  try {
+    const stored = localStorage.getItem('fransonoWishlist');
+    if (stored) {
+      state.wishlist = new Set(JSON.parse(stored));
+    }
+  } catch (error) {
+    console.warn('Could not load wishlist', error);
+  }
+}
+
+function renderWishlist() {
+  const items = allProducts().filter((item) => state.wishlist.has(item.id));
+  const container = document.querySelector('#wishlistItems');
+  updateWishlistButtonState();
+  container.innerHTML = items.length
+    ? items.map((item) => `
+      <div class="cart-line">
+        <img src="${item.image}" alt="${item.name}" />
+        <div>
+          <h3>${item.brand}</h3>
+          <p>${item.name}</p>
+          <strong>${rupees(item.price)}</strong>
+        </div>
+        <button data-wishlist-remove="${item.id}" aria-label="Remove ${item.name} from wishlist">&times;</button>
+      </div>
+    `).join('')
+    : `<p class="empty">No liked items yet. Tap the heart icon on a product to add it.</p>`;
+}
+
+function openWishlistDrawer() {
+  renderWishlist();
+  document.body.classList.remove('drawer-open', 'checkout-open');
+  document.body.classList.add('wishlist-open');
+}
+
+function closeWishlistDrawer() {
+  document.body.classList.remove('wishlist-open');
 }
 
 function buildWhatsAppOrderMessage(customer = {}) {
@@ -296,7 +351,27 @@ document.addEventListener("click", (event) => {
   if (wishlistButton) {
     const id = wishlistButton.dataset.wishlist;
     state.wishlist.has(id) ? state.wishlist.delete(id) : state.wishlist.add(id);
+    saveWishlist();
     renderProducts();
+    if (document.body.classList.contains('wishlist-open')) {
+      renderWishlist();
+    }
+    return;
+  }
+
+  const topWishlistButton = event.target.closest("#wishlistButton");
+  if (topWishlistButton) {
+    openWishlistDrawer();
+    return;
+  }
+
+  const wishlistRemoveButton = event.target.closest("[data-wishlist-remove]");
+  if (wishlistRemoveButton) {
+    state.wishlist.delete(wishlistRemoveButton.dataset.wishlistRemove);
+    saveWishlist();
+    renderWishlist();
+    renderProducts();
+    return;
   }
 
   const cartButton = event.target.closest("[data-cart]");
@@ -336,15 +411,19 @@ nodes.sort.addEventListener("change", (event) => {
 
 document.querySelector("#filterToggle").addEventListener("click", () => document.body.classList.add("filters-open"));
 document.querySelector("#closeFilters").addEventListener("click", () => document.body.classList.remove("filters-open"));
-document.querySelector("#menuToggle").addEventListener("click", () => nodes.mainNav.classList.toggle("is-open"));
+document.querySelector("#menuToggle").addEventListener("click", () => document.body.classList.toggle("filters-open"));
 document.querySelector("#cartButton").addEventListener("click", () => document.body.classList.add("drawer-open"));
 document.querySelector("#closeCart").addEventListener("click", () => document.body.classList.remove("drawer-open"));
+document.querySelector("#closeWishlist").addEventListener("click", closeWishlistDrawer);
 document.querySelector("#drawerBackdrop").addEventListener("click", () => {
   document.body.classList.remove("drawer-open");
+  closeWishlistDrawer();
   closeCheckoutDetails();
 });
 document.querySelector("#checkoutButton").addEventListener("click", openCheckoutDetails);
 document.querySelector("#closeCheckout").addEventListener("click", closeCheckoutDetails);
+const wishlistToggle = document.querySelector("#wishlistButton");
+wishlistToggle?.addEventListener("click", openWishlistDrawer);
 nodes.checkoutForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(nodes.checkoutForm);
@@ -376,12 +455,14 @@ async function initStorefront() {
   nodes.grid.innerHTML = `<p class="empty">Loading store data...</p>`;
 
   try {
+    loadWishlist();
     const response = await fetch("./data/store.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`Could not load data/store.json (${response.status})`);
     DATA = await response.json();
     renderSiteSettings();
     renderCollection();
     renderCart();
+    updateWishlistButtonState();
   } catch (error) {
     nodes.grid.innerHTML = `<p class="empty">Store data failed to load. Check data/store.json and run the site from a local server.</p>`;
     console.error(error);

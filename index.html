@@ -8,21 +8,6 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="top-strip">
-      <div class="shell top-strip__inner">
-        <div class="link-row">
-          <a href="#">Offers</a>
-          <a href="#">Fanbook</a>
-          <a href="#">Download App</a>
-          <a href="#">Find a store near me</a>
-        </div>
-        <div class="link-row link-row--right">
-          <a href="#">Contact Us</a>
-          <a href="#">Track Order</a>
-        </div>
-      </div>
-    </div>
-
     <header class="site-header">
       <div class="shell header-grid">
         <button class="icon-btn mobile-only" id="menuToggle" aria-label="Open menu">
@@ -34,16 +19,15 @@
         <nav class="main-nav" id="mainNav">
           <a href="#men">MEN</a>
           <a href="#women">WOMEN</a>
-          <a href="#accessories">ACCESSORIES</a>
         </nav>
         <label class="search-box" aria-label="Search by products">
           <span aria-hidden="true" class="search-icon"></span>
           <input id="searchInput" type="search" placeholder="Search by products" />
         </label>
         <div class="header-actions">
-          <button class="login-btn">LOGIN</button>
-          <button class="plain-icon" id="wishlistButton" aria-label="Wishlist">&#9825;</button>
-          <button class="plain-icon bag" id="cartButton" aria-label="Cart">
+          <button class="login-btn" type="button">LOGIN</button>
+          <button class="plain-icon" id="wishlistButton" type="button" aria-label="Wishlist">&#9825;</button>
+          <button class="plain-icon bag" id="cartButton" type="button" aria-label="Cart">
             <span></span>
             <strong id="cartCount">0</strong>
           </button>
@@ -142,6 +126,14 @@
         <div><span>Total</span><strong id="cartTotal">&#8377;0</strong></div>
         <button id="checkoutButton">PLACE ORDER</button>
       </div>
+    </aside>
+
+    <aside class="wishlist-drawer" id="wishlistDrawer" aria-label="Wishlist drawer">
+      <div class="drawer-head">
+        <h2>Wishlist</h2>
+        <button id="closeWishlist" aria-label="Close wishlist">&times;</button>
+      </div>
+      <div id="wishlistItems" class="cart-items"></div>
     </aside>
 
     <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
