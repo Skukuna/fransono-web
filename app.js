@@ -258,6 +258,7 @@ function renderWishlist() {
           <h3>${item.brand}</h3>
           <p>${item.name}</p>
           <strong>${rupees(item.price)}</strong>
+          <button class="add-btn" data-cart="${item.id}" aria-label="Add ${item.name} to cart">ADD TO BAG</button>
         </div>
         <button data-wishlist-remove="${item.id}" aria-label="Remove ${item.name} from wishlist">&times;</button>
       </div>
