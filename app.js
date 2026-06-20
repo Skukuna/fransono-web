@@ -1,4 +1,4 @@
-﻿let DATA = null;
+let DATA = null;
 
 const state = {
   section: "men",
@@ -23,7 +23,24 @@ const nodes = {
   cartCount: document.querySelector("#cartCount"),
   cartItems: document.querySelector("#cartItems"),
   cartTotal: document.querySelector("#cartTotal"),
-  checkoutForm: document.querySelector("#checkoutForm")
+  checkoutForm: document.querySelector("#checkoutForm"),
+  productModal: document.querySelector("#productModal"),
+  closeProduct: document.querySelector("#closeProduct"),
+  modalProductImage: document.querySelector("#modalProductImage"),
+  modalProductBrand: document.querySelector("#modalProductBrand"),
+  modalProductName: document.querySelector("#modalProductName"),
+  modalProductRating: document.querySelector("#modalProductRating"),
+  modalProductPrice: document.querySelector("#modalProductPrice"),
+  modalProductMRP: document.querySelector("#modalProductMRP"),
+  modalProductDiscount: document.querySelector("#modalProductDiscount"),
+  modalProductOffer: document.querySelector("#modalProductOffer"),
+  modalProductFit: document.querySelector("#modalProductFit"),
+  modalProductDesign: document.querySelector("#modalProductDesign"),
+  modalProductColor: document.querySelector("#modalProductColor"),
+  modalProductCategory: document.querySelector("#modalProductCategory"),
+  modalSizeChips: document.querySelector("#modalSizeChips"),
+  modalSizeError: document.querySelector("#modalSizeError"),
+  modalAddButton: document.querySelector("#modalAddButton")
 };
 
 function collectionData(section = state.section) {
@@ -70,28 +87,20 @@ function productMatchesFilter(product, group, selectedValue) {
 
 function renderSiteSettings() {
   const site = DATA.site;
-  document.title = `${site.brandName} Storefront`;
-  document.querySelector(".brand span").textContent = site.brandName;
-  document.querySelector(".hero-brand").textContent = site.brandName;
-  document.querySelector(".shipping-band span").textContent = site.freeShippingText;
+  document.title = `${site.brandName} Storefront` + (state.section === "home" ? "" : ` - ${state.section.charAt(0).toUpperCase() + state.section.slice(1)}`);
+  
+  const brandSpan = document.querySelector(".brand span");
+  if (brandSpan) brandSpan.textContent = site.brandName;
 
-  document.querySelector("#trustTicker").innerHTML = site.stats.map((stat) => `
-    <span><img src="${stat.icon}" alt="" /> <b>${stat.value}</b> ${stat.label}</span>
-  `).join("");
+  const shippingSpan = document.querySelector(".shipping-band span");
+  if (shippingSpan) shippingSpan.textContent = site.freeShippingText;
 
-  document.querySelector(".hero-cards").innerHTML = site.homeCards.map((card) => `
-    <button class="shop-card" data-section="${card.section}">
-      <img src="${card.image}" alt="${card.label} fashion" />
-      <span>${card.label}</span>
-    </button>
-  `).join("");
-
-  document.querySelector(".category-band").innerHTML = site.featureCards.map((card) => `
-    <article>
-      <strong>${card.title}</strong>
-      <span>${card.text}</span>
-    </article>
-  `).join("");
+  const ticker = document.querySelector("#trustTicker");
+  if (ticker) {
+    ticker.innerHTML = site.stats.map((stat) => `
+      <span><img src="${stat.icon}" alt="" /> <b>${stat.value}</b> ${stat.label}</span>
+    `).join("");
+  }
 }
 
 function productsForView() {
@@ -114,6 +123,7 @@ function productsForView() {
 }
 
 function renderFilters() {
+  if (!nodes.filterGroups) return;
   const groups = collectionData().filters;
   nodes.filterGroups.innerHTML = Object.entries(groups)
     .map(([group, values]) => `
@@ -133,6 +143,7 @@ function renderFilters() {
 }
 
 function renderChips() {
+  if (!nodes.chips) return;
   const categories = ["all", ...collectionData().categories];
   nodes.chips.innerHTML = categories
     .map((category) => `
@@ -144,15 +155,16 @@ function renderChips() {
 }
 
 function renderProducts() {
+  if (!nodes.grid) return;
   const items = productsForView();
-  nodes.count.textContent = `${items.length} Products`;
+  if (nodes.count) nodes.count.textContent = `${items.length} Products`;
   nodes.grid.innerHTML = items.map((item) => `
-    <article class="product-card">
+    <article class="product-card" data-product-id="${item.id}">
       <div class="product-media">
         <img src="${item.image}" alt="${item.name}" loading="lazy" />
         <span class="fit-badge">${item.fit}</span>
         <span class="rating"><span>&#9733;</span>${item.rating}</span>
-        <button class="wishlist ${state.wishlist.has(item.id) ? "is-active" : ""}" data-wishlist="${item.id}" aria-label="Add ${item.name} to wishlist">&#9825;</button>
+        <button class="wishlist ${state.wishlist.has(item.id) ? "is-active" : ""}" data-wishlist="${item.id}" aria-label="Add ${item.name} to wishlist">${state.wishlist.has(item.id) ? "&#9829;" : "&#9825;"}</button>
       </div>
       <div class="product-info">
         <h3>${item.brand}</h3>
@@ -172,17 +184,15 @@ function renderProducts() {
 
 function renderCollection() {
   const collection = collectionData();
-  nodes.title.textContent = collection.title;
-  nodes.crumb.textContent = collection.crumb;
-  document.querySelectorAll(".main-nav a").forEach((link) => {
-    link.classList.toggle("is-active", link.hash === `#${state.section}`);
-  });
+  if (nodes.title) nodes.title.textContent = collection.title;
+  if (nodes.crumb) nodes.crumb.textContent = collection.crumb;
   renderFilters();
   renderChips();
   renderProducts();
 }
 
 function renderCart() {
+  if (!nodes.cartCount || !nodes.cartTotal || !nodes.cartItems) return;
   nodes.cartCount.textContent = state.cart.length;
   const total = state.cart.reduce((sum, item) => sum + item.price, 0);
   nodes.cartTotal.textContent = rupees(total);
@@ -193,6 +203,7 @@ function renderCart() {
         <div>
           <h3>${item.brand}</h3>
           <p>${item.name}</p>
+          <span class="cart-item-size" style="display: block; font-size: 12px; color: var(--muted); margin: 3px 0;">Size: ${item.selectedSize || 'M'}</span>
           <strong>${rupees(item.price)}</strong>
         </div>
         <button data-remove="${index}" aria-label="Remove ${item.name}">&times;</button>
@@ -204,7 +215,9 @@ function renderCart() {
 function updateWishlistButtonState() {
   const button = document.querySelector('#wishlistButton');
   if (!button) return;
-  button.classList.toggle('is-active', state.wishlist.size > 0);
+  const isActive = state.wishlist.size > 0;
+  button.classList.toggle('is-active', isActive);
+  button.innerHTML = isActive ? '&#9829;' : '&#9825;';
 }
 
 function saveWishlist() {
@@ -228,7 +241,7 @@ function loadWishlist() {
 
 function saveCart() {
   try {
-    localStorage.setItem('fransonoCart', JSON.stringify(state.cart.map((item) => item.id)));
+    localStorage.setItem('fransonoCart', JSON.stringify(state.cart.map((item) => ({ id: item.id, size: item.selectedSize }))));
   } catch (error) {
     console.warn('Could not save cart', error);
   }
@@ -238,8 +251,16 @@ function loadCart() {
   try {
     const stored = localStorage.getItem('fransonoCart');
     if (stored && DATA) {
-      const ids = JSON.parse(stored);
-      state.cart = allProducts().filter((product) => ids.includes(product.id));
+      const items = JSON.parse(stored);
+      state.cart = items.map((entry) => {
+        const id = typeof entry === 'string' ? entry : entry.id;
+        const size = typeof entry === 'string' ? 'M' : entry.size;
+        const product = allProducts().find((p) => p.id === id);
+        if (product) {
+          return { ...product, selectedSize: size || product.sizes[0] || 'M' };
+        }
+        return null;
+      }).filter(Boolean);
     }
   } catch (error) {
     console.warn('Could not load cart', error);
@@ -249,6 +270,7 @@ function loadCart() {
 function renderWishlist() {
   const items = allProducts().filter((item) => state.wishlist.has(item.id));
   const container = document.querySelector('#wishlistItems');
+  if (!container) return;
   updateWishlistButtonState();
   container.innerHTML = items.length
     ? items.map((item) => `
@@ -298,7 +320,7 @@ function buildWhatsAppOrderMessage(customer = {}) {
 
   state.cart.forEach((item, index) => {
     lines.push(`${index + 1}. ${item.brand}`);
-    lines.push(item.name);
+    lines.push(`${item.name} (Size: ${item.selectedSize || 'M'})`);
     lines.push(`Price: ${rupees(item.price)}`);
     lines.push("");
   });
@@ -317,12 +339,14 @@ function openCheckoutDetails() {
 
   document.body.classList.remove("drawer-open");
   document.body.classList.add("checkout-open");
-  document.querySelector("#checkoutModal").setAttribute("aria-hidden", "false");
+  const modal = document.querySelector("#checkoutModal");
+  if (modal) modal.setAttribute("aria-hidden", "false");
 }
 
 function closeCheckoutDetails() {
   document.body.classList.remove("checkout-open");
-  document.querySelector("#checkoutModal").setAttribute("aria-hidden", "true");
+  const modal = document.querySelector("#checkoutModal");
+  if (modal) modal.setAttribute("aria-hidden", "true");
 }
 
 function redirectToWhatsAppOrder(customer) {
@@ -336,21 +360,54 @@ function redirectToWhatsAppOrder(customer) {
   window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
 }
 
-function setSection(section) {
-  if (!DATA.collections[section]) return;
-  state.section = section;
-  state.category = "all";
-  state.filters = {};
-  state.query = "";
-  nodes.search.value = "";
-  renderCollection();
-  document.querySelector("#collection").scrollIntoView({ behavior: "smooth", block: "start" });
+function openProductModal(productId) {
+  const product = allProducts().find((p) => p.id === productId);
+  if (!product) return;
+  
+  state.selectedProduct = product;
+  state.selectedSize = null;
+  
+  if (nodes.modalProductImage) nodes.modalProductImage.src = product.image;
+  if (nodes.modalProductImage) nodes.modalProductImage.alt = product.name;
+  if (nodes.modalProductBrand) nodes.modalProductBrand.textContent = product.brand;
+  if (nodes.modalProductName) nodes.modalProductName.textContent = product.name;
+  if (nodes.modalProductRating) nodes.modalProductRating.textContent = product.rating;
+  if (nodes.modalProductPrice) nodes.modalProductPrice.textContent = rupees(product.price);
+  if (nodes.modalProductMRP) nodes.modalProductMRP.textContent = rupees(product.mrp);
+  if (nodes.modalProductDiscount) nodes.modalProductDiscount.textContent = product.discount;
+  
+  if (nodes.modalProductOffer) {
+    nodes.modalProductOffer.textContent = product.offer || "";
+    nodes.modalProductOffer.style.display = product.offer ? "inline-block" : "none";
+  }
+  
+  if (nodes.modalProductFit) nodes.modalProductFit.textContent = product.fit;
+  if (nodes.modalProductDesign) nodes.modalProductDesign.textContent = product.design;
+  if (nodes.modalProductColor) nodes.modalProductColor.textContent = product.color;
+  if (nodes.modalProductCategory) nodes.modalProductCategory.textContent = product.category;
+  
+  if (nodes.modalSizeChips) {
+    const sizes = product.sizes && product.sizes.length ? product.sizes : ["XS", "S", "M", "L", "XL"];
+    nodes.modalSizeChips.innerHTML = sizes.map((size) => `
+      <button type="button" data-modal-size="${size}">${size}</button>
+    `).join("");
+  }
+  
+  if (nodes.modalSizeError) nodes.modalSizeError.style.display = "none";
+  
+  document.body.classList.remove('drawer-open', 'wishlist-open', 'checkout-open');
+  document.body.classList.add('product-open');
+  if (nodes.productModal) nodes.productModal.setAttribute("aria-hidden", "false");
+}
+
+function closeProductModal() {
+  document.body.classList.remove('product-open');
+  if (nodes.productModal) nodes.productModal.setAttribute("aria-hidden", "true");
+  state.selectedProduct = null;
+  state.selectedSize = null;
 }
 
 document.addEventListener("click", (event) => {
-  const sectionButton = event.target.closest("[data-section]");
-  if (sectionButton) setSection(sectionButton.dataset.section);
-
   const categoryButton = event.target.closest("[data-category]");
   if (categoryButton) {
     state.category = categoryButton.dataset.category;
@@ -395,15 +452,48 @@ document.addEventListener("click", (event) => {
     return;
   }
 
-  const cartButton = event.target.closest("[data-cart]");
-  if (cartButton) {
-    const product = allProducts().find((item) => item.id === cartButton.dataset.cart);
-    if (product) {
-      state.cart.push(product);
-      saveCart();
+  // Intercept size selection in product modal
+  const sizeChip = event.target.closest("[data-modal-size]");
+  if (sizeChip) {
+    state.selectedSize = sizeChip.dataset.modalSize;
+    document.querySelectorAll("[data-modal-size]").forEach((btn) => {
+      btn.classList.toggle("selected", btn.dataset.modalSize === state.selectedSize);
+    });
+    if (nodes.modalSizeError) nodes.modalSizeError.style.display = "none";
+    return;
+  }
+
+  // Intercept Add to Bag from details modal
+  const modalAddBtn = event.target.closest("#modalAddButton");
+  if (modalAddBtn) {
+    if (!state.selectedProduct) return;
+    if (!state.selectedSize) {
+      if (nodes.modalSizeError) nodes.modalSizeError.style.display = "block";
+      return;
     }
+    const productWithSize = { ...state.selectedProduct, selectedSize: state.selectedSize };
+    state.cart.push(productWithSize);
+    saveCart();
     renderCart();
+    closeProductModal();
     document.body.classList.add("drawer-open");
+    return;
+  }
+
+  // Intercept product modal close click
+  const closeProductBtn = event.target.closest("#closeProduct");
+  if (closeProductBtn) {
+    closeProductModal();
+    return;
+  }
+
+  // Intercept product card or add to bag click to open details modal
+  const cartButton = event.target.closest("[data-cart]");
+  const productCard = event.target.closest("[data-product-id]");
+  if (cartButton || productCard) {
+    const id = cartButton ? cartButton.dataset.cart : productCard.dataset.productId;
+    openProductModal(id);
+    return;
   }
 
   const removeButton = event.target.closest("[data-remove]");
@@ -414,48 +504,46 @@ document.addEventListener("click", (event) => {
   }
 });
 
-document.querySelectorAll(".main-nav a").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    const section = link.hash.replace("#", "");
-    if (DATA.collections[section]) {
-      event.preventDefault();
-      setSection(section);
-    }
-  });
-});
-
-nodes.search.addEventListener("input", (event) => {
+function handleSearch(event) {
   state.query = event.target.value.trim();
+  if (nodes.search) nodes.search.value = state.query;
+  const mobileInput = document.querySelector("#mobileSearchInput");
+  if (mobileInput) mobileInput.value = state.query;
   renderProducts();
-});
+}
 
-nodes.sort.addEventListener("change", (event) => {
+nodes.search?.addEventListener("input", handleSearch);
+document.querySelector("#mobileSearchInput")?.addEventListener("input", handleSearch);
+
+nodes.sort?.addEventListener("change", (event) => {
   state.sort = event.target.value;
   renderProducts();
 });
 
-document.querySelector("#filterToggle").addEventListener("click", () => document.body.classList.add("filters-open"));
-document.querySelector("#closeFilters").addEventListener("click", () => document.body.classList.remove("filters-open"));
-document.querySelector("#menuToggle").addEventListener("click", () => document.body.classList.toggle("filters-open"));
-document.querySelector("#cartButton").addEventListener("click", () => document.body.classList.add("drawer-open"));
-document.querySelector("#closeCart").addEventListener("click", () => document.body.classList.remove("drawer-open"));
-document.querySelector("#closeWishlist").addEventListener("click", closeWishlistDrawer);
-document.querySelector("#drawerBackdrop").addEventListener("click", () => {
+document.querySelector("#filterToggle")?.addEventListener("click", () => document.body.classList.add("filters-open"));
+document.querySelector("#closeFilters")?.addEventListener("click", () => document.body.classList.remove("filters-open"));
+document.querySelector("#menuToggle")?.addEventListener("click", () => document.body.classList.toggle("filters-open"));
+document.querySelector("#cartButton")?.addEventListener("click", () => document.body.classList.add("drawer-open"));
+document.querySelector("#closeCart")?.addEventListener("click", () => document.body.classList.remove("drawer-open"));
+document.querySelector("#closeWishlist")?.addEventListener("click", closeWishlistDrawer);
+document.querySelector("#drawerBackdrop")?.addEventListener("click", () => {
   document.body.classList.remove("drawer-open");
+  document.body.classList.remove("filters-open");
   closeWishlistDrawer();
   closeCheckoutDetails();
+  closeProductModal();
 });
-document.querySelector("#checkoutButton").addEventListener("click", openCheckoutDetails);
-document.querySelector("#closeCheckout").addEventListener("click", closeCheckoutDetails);
+document.querySelector("#checkoutButton")?.addEventListener("click", openCheckoutDetails);
+document.querySelector("#closeCheckout")?.addEventListener("click", closeCheckoutDetails);
 const wishlistToggle = document.querySelector("#wishlistButton");
 wishlistToggle?.addEventListener("click", openWishlistDrawer);
-nodes.checkoutForm.addEventListener("submit", (event) => {
+nodes.checkoutForm?.addEventListener("submit", (event) => {
   event.preventDefault();
   const formData = new FormData(nodes.checkoutForm);
   const customer = Object.fromEntries(formData.entries());
   redirectToWhatsAppOrder(customer);
 });
-document.querySelector("#mobileSort").addEventListener("click", () => {
+document.querySelector("#mobileSort")?.addEventListener("click", () => {
   const order = ["popular", "new", "high", "low"];
   const labels = {
     popular: "Popularity",
@@ -464,20 +552,25 @@ document.querySelector("#mobileSort").addEventListener("click", () => {
     low: "Low to High"
   };
   state.sort = order[(order.indexOf(state.sort) + 1) % order.length];
-  nodes.sort.value = state.sort;
-  document.querySelector("#mobileSort").textContent = `Sort: ${labels[state.sort]}`;
+  if (nodes.sort) nodes.sort.value = state.sort;
+  const mobSortBtn = document.querySelector("#mobileSort");
+  if (mobSortBtn) mobSortBtn.textContent = `Sort: ${labels[state.sort]}`;
   renderProducts();
 });
 
 let tick = 0;
 setInterval(() => {
   if (!DATA) return;
+  const ticker = document.querySelector("#trustTicker");
+  if (!ticker) return;
   tick = Number(!tick);
-  document.querySelector("#trustTicker").style.transform = `translateX(-${tick * 100}vw)`;
+  ticker.style.transform = `translateX(-${tick * 100}vw)`;
 }, 2600);
 
 async function initStorefront() {
-  nodes.grid.innerHTML = `<p class="empty">Loading store data...</p>`;
+  if (nodes.grid) {
+    nodes.grid.innerHTML = `<p class="empty">Loading store data...</p>`;
+  }
 
   try {
     loadWishlist();
@@ -485,15 +578,37 @@ async function initStorefront() {
     if (!response.ok) throw new Error(`Could not load data/store.json (${response.status})`);
     DATA = await response.json();
     loadCart();
+    
+    const pathname = window.location.pathname;
+    if (pathname.endsWith("/women.html") || pathname.endsWith("/women")) {
+      state.section = "women";
+    } else if (pathname.endsWith("/men.html") || pathname.endsWith("/men")) {
+      state.section = "men";
+    } else {
+      state.section = "home";
+    }
+
     renderSiteSettings();
-    renderCollection();
+    if (state.section !== "home" && nodes.grid) {
+      renderCollection();
+    }
     renderCart();
     updateWishlistButtonState();
   } catch (error) {
-    nodes.grid.innerHTML = `<p class="empty">Store data failed to load. Check data/store.json and run the site from a local server.</p>`;
+    if (nodes.grid) {
+      nodes.grid.innerHTML = `<p class="empty">Store data failed to load. Check data/store.json and run the site from a local server.</p>`;
+    }
     console.error(error);
   }
 }
 
-initStorefront();
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeProductModal();
+    closeWishlistDrawer();
+    closeCheckoutDetails();
+    document.body.classList.remove("drawer-open", "filters-open");
+  }
+});
 
+initStorefront();

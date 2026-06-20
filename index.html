@@ -10,43 +10,11 @@
     <link rel="preconnect" href="https://images.bewakoof.com" />
     <link rel="stylesheet" href="./styles.css?v=1.0" />
   </head>
-  <body>
-    <header class="site-header">
-      <div class="shell header-grid">
-        <div class="header-left">
-          <button class="icon-btn mobile-only" id="menuToggle" aria-label="Open menu">
-            <span></span><span></span><span></span>
-          </button>
-          <nav class="main-nav" id="mainNav">
-            <a href="#men">MEN</a>
-            <a href="#women">WOMEN</a>
-          </nav>
-          <label class="search-box" aria-label="Search by products">
-            <span aria-hidden="true" class="search-icon"></span>
-            <input id="searchInput" type="search" placeholder="Search by products" />
-          </label>
-        </div>
-        <a class="brand" href="#home" aria-label="FRANSONO home">
-          <span>FRANSONO</span><sup>TM</sup>
-        </a>
-        <div class="header-right">
-          <div class="header-actions">
-            <button class="login-btn" type="button">LOGIN</button>
-            <button class="plain-icon" id="wishlistButton" type="button" aria-label="Wishlist">&#9825;</button>
-            <button class="plain-icon bag" id="cartButton" type="button" aria-label="Cart">
-              <span></span>
-              <strong id="cartCount">0</strong>
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
+  <body class="route-home">
     <main>
       <section class="trust-band" aria-label="Store stats">
         <div class="ticker" id="trustTicker">
-          <span><img src="https://images.bewakoof.com/web/ic-person-solid-black-mweb.png" alt="" /> <b>10 Crores+</b> Products Sold</span>
-          <span><img src="https://images.bewakoof.com/web/ic-bag-solid-black-mweb.png" alt="" /> <b>2 Crores+</b> Customers Bought</span>
+          <span><img src="https://images.bewakoof.com/web/ic-person-solid-black-mweb.png" alt="" /> <b>100 Crores+</b> Products Sold</span>
         </div>
       </section>
 
@@ -55,133 +23,22 @@
       </section>
 
       <section class="hero" id="home">
-        <img class="hero__collab" src="https://images.bewakoof.com/web/ic-desktop-abfrl.svg" alt="Aditya Birla Fashion and Retail" />
+        <img class="hero__collab" src="https://iili.io/Czhsy1p.md.jpg" alt="FRANSONO" />
         <div class="hero__center">
-          <div class="hero-brand">FRANSONO</div>
-          <div class="hero__shop">SHOP FOR</div>
+          <div class="hero-brand">FRANSONO<sup>TM</sup></div>
           <div class="hero-cards">
-            <button class="shop-card" data-section="men">
+            <a class="shop-card" href="./men.html">
               <img src="https://images.bewakoof.com/t640/men-s-black-venom-graphic-printed-oversized-t-shirt-651229-1731501911-1.jpg" alt="Men graphic t-shirt" />
               <span>MEN</span>
-            </button>
-            <button class="shop-card" data-section="women">
+            </a>
+            <a class="shop-card" href="./women.html">
               <img src="https://images.bewakoof.com/t640/women-s-beige-drip-graphic-printed-boyfriend-t-shirt-687568-1758530941-1.jpg" alt="Women graphic t-shirt" />
               <span>WOMEN</span>
-            </button>
+            </a>
           </div>
         </div>
-      </section>
-
-      <section class="category-band shell">
-        <article>
-          <strong>Official Collabs</strong>
-          <span>Marvel, Disney, anime and pop culture drops</span>
-        </article>
-        <article>
-          <strong>Heavy Duty</strong>
-          <span>Oversized fits, dense cotton and street-ready graphics</span>
-        </article>
-        <article>
-          <strong>Deals Live</strong>
-          <span>Bundle offers and free shipping above &#8377;399</span>
-        </article>
-      </section>
-
-      <section class="collection-shell shell" id="collection">
-        <div class="breadcrumb">Home <span>&gt;</span> <b id="crumbLabel">Men Clothing</b></div>
-        <div class="mobile-filterbar">
-          <button id="filterToggle">Filters</button>
-          <button id="mobileSort">Sort: Popularity</button>
-        </div>
-        <aside class="filters" id="filtersPanel" aria-label="Product filters">
-          <div class="filters__head">
-            <h2>Filters</h2>
-            <button id="closeFilters" aria-label="Close filters">&times;</button>
-          </div>
-          <div id="filterGroups"></div>
-        </aside>
-        <section class="products-area">
-          <div class="products-head">
-            <div>
-              <h1 id="collectionTitle">Clothes for Men</h1>
-              <span id="productCount">0 Products</span>
-            </div>
-            <label class="sort-select">
-              <span>Sort by :</span>
-              <select id="sortSelect">
-                <option value="popular">Popularity</option>
-                <option value="new">New Arrival</option>
-                <option value="high">Price : High to Low</option>
-                <option value="low">Price : Low to High</option>
-              </select>
-            </label>
-          </div>
-          <div class="chips" id="categoryChips"></div>
-          <div class="product-grid" id="productGrid"></div>
-        </section>
       </section>
     </main>
-
-    <div class="drawer-backdrop" id="drawerBackdrop"></div>
-    <aside class="cart-drawer" id="cartDrawer" aria-label="Cart drawer">
-      <div class="drawer-head">
-        <h2>My Bag</h2>
-        <button id="closeCart" aria-label="Close cart">&times;</button>
-      </div>
-      <div id="cartItems" class="cart-items"></div>
-      <div class="cart-summary">
-        <div><span>Total</span><strong id="cartTotal">&#8377;0</strong></div>
-        <button id="checkoutButton">PLACE ORDER</button>
-      </div>
-    </aside>
-
-    <aside class="wishlist-drawer" id="wishlistDrawer" aria-label="Wishlist drawer">
-      <div class="drawer-head">
-        <h2>Wishlist</h2>
-        <button id="closeWishlist" aria-label="Close wishlist">&times;</button>
-      </div>
-      <div id="wishlistItems" class="cart-items"></div>
-    </aside>
-
-    <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
-      <form class="checkout-form" id="checkoutForm">
-        <div class="drawer-head">
-          <h2>Delivery Details</h2>
-          <button type="button" id="closeCheckout" aria-label="Close checkout">&times;</button>
-        </div>
-        <div class="checkout-fields">
-          <label>
-            <span>Full Name</span>
-            <input name="name" type="text" placeholder="Enter full name" required />
-          </label>
-          <label>
-            <span>Mobile Number</span>
-            <input name="phone" type="tel" placeholder="Enter mobile number" required />
-          </label>
-          <label>
-            <span>Full Address</span>
-            <textarea name="address" rows="3" placeholder="House no, street, area" required></textarea>
-          </label>
-          <div class="field-row">
-            <label>
-              <span>City</span>
-              <input name="city" type="text" placeholder="City" required />
-            </label>
-            <label>
-              <span>Pincode</span>
-              <input name="pincode" type="text" placeholder="Pincode" required />
-            </label>
-          </div>
-          <label>
-            <span>Order Note</span>
-            <textarea name="note" rows="2" placeholder="Size, color, or delivery note"></textarea>
-          </label>
-        </div>
-        <div class="checkout-submit">
-          <button type="submit">SEND ORDER ON WHATSAPP</button>
-        </div>
-      </form>
-    </div>
 
     <script src="./app.js?v=1.0"></script>
   </body>

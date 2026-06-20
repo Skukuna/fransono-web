@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>FRANSONO Storefront - Men</title>
+    <link rel="preconnect" href="https://images.bewakoof.com" />
+    <link rel="stylesheet" href="./styles.css?v=1.0" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-grid">
+        <div class="header-left">
+          <button class="icon-btn mobile-only" id="menuToggle" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+          <nav class="main-nav" id="mainNav">
+            <a href="./men.html" class="is-active">MEN</a>
+            <a href="./women.html">WOMEN</a>
+          </nav>
+          <label class="search-box" aria-label="Search by products">
+            <span aria-hidden="true" class="search-icon"></span>
+            <input id="searchInput" type="search" placeholder="Search by products" />
+          </label>
+        </div>
+        <a class="brand" href="./index.html" aria-label="FRANSONO home">
+          <span>FRANSONO</span><sup>TM</sup>
+        </a>
+        <div class="header-right">
+          <div class="header-actions">
+            <button class="plain-icon" id="wishlistButton" type="button" aria-label="Wishlist">&#9825;</button>
+            <button class="plain-icon bag" id="cartButton" type="button" aria-label="Cart">
+              <span></span>
+              <strong id="cartCount">0</strong>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="trust-band" aria-label="Store stats">
+        <div class="ticker" id="trustTicker">
+          <span><img src="https://images.bewakoof.com/web/ic-person-solid-black-mweb.png" alt="" /> <b>10 Crores+</b> Products Sold</span>
+          <span><img src="https://images.bewakoof.com/web/ic-bag-solid-black-mweb.png" alt="" /> <b>2 Crores+</b> Customers Bought</span>
+        </div>
+      </section>
+
+      <section class="shipping-band">
+        <span>FREE SHIPPING on all orders above &#8377;399</span>
+      </section>
+
+      <section class="collection-shell shell" id="collection">
+        <div class="breadcrumb"><a href="./index.html" class="breadcrumb-home">Home</a> <span>&gt;</span> <b id="crumbLabel">Men Clothing</b></div>
+        <div class="mobile-filterbar">
+          <button id="filterToggle">Filters</button>
+          <button id="mobileSort">Sort: Popularity</button>
+        </div>
+        <aside class="filters" id="filtersPanel" aria-label="Product filters">
+          <div class="filters__head">
+            <h2>Filters</h2>
+            <button id="closeFilters" aria-label="Close filters">&times;</button>
+          </div>
+          <div class="filter-group mobile-only">
+            <button class="filter-title" type="button" style="font-weight: 700;">Department</button>
+            <div class="filter-options" style="margin-top: 10px;">
+              <a href="./men.html" class="mobile-dept-link is-active" data-dept="men">MEN</a>
+              <a href="./women.html" class="mobile-dept-link" data-dept="women">WOMEN</a>
+            </div>
+          </div>
+          <div id="filterGroups"></div>
+        </aside>
+        <section class="products-area">
+          <div class="mobile-search-container mobile-only">
+            <input id="mobileSearchInput" type="search" placeholder="Search by products..." />
+          </div>
+          <div class="products-head">
+            <div>
+              <h1 id="collectionTitle">Clothes for Men</h1>
+              <span id="productCount">0 Products</span>
+            </div>
+            <label class="sort-select">
+              <span>Sort by :</span>
+              <select id="sortSelect">
+                <option value="popular">Popularity</option>
+                <option value="new">New Arrival</option>
+                <option value="high">Price : High to Low</option>
+                <option value="low">Price : Low to High</option>
+              </select>
+            </label>
+          </div>
+          <div class="chips" id="categoryChips"></div>
+          <div class="product-grid" id="productGrid"></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Cart drawer">
+      <div class="drawer-head">
+        <h2>My Bag</h2>
+        <button id="closeCart" aria-label="Close cart">&times;</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-summary">
+        <div><span>Total</span><strong id="cartTotal">&#8377;0</strong></div>
+        <button id="checkoutButton">PLACE ORDER</button>
+      </div>
+    </aside>
+
+    <aside class="wishlist-drawer" id="wishlistDrawer" aria-label="Wishlist drawer">
+      <div class="drawer-head">
+        <h2>Wishlist</h2>
+        <button id="closeWishlist" aria-label="Close wishlist">&times;</button>
+      </div>
+      <div id="wishlistItems" class="cart-items"></div>
+    </aside>
+
+    <div class="product-modal" id="productModal" aria-hidden="true">
+      <div class="product-modal-content">
+        <button type="button" id="closeProduct" class="close-product-btn" aria-label="Close product details">&times;</button>
+        <div class="product-modal-body">
+          <div class="product-modal-media">
+            <img id="modalProductImage" src="" alt="Product image" />
+          </div>
+          <div class="product-modal-info">
+            <span class="product-modal-brand" id="modalProductBrand"></span>
+            <h2 class="product-modal-name" id="modalProductName"></h2>
+            
+            <div class="product-modal-rating-price">
+              <span class="rating"><span>&#9733;</span><span id="modalProductRating"></span></span>
+              <div class="price">
+                <strong id="modalProductPrice"></strong>
+                <del id="modalProductMRP"></del>
+                <span id="modalProductDiscount"></span>
+              </div>
+            </div>
+            
+            <span class="offer" id="modalProductOffer" style="margin-top: -5px; font-weight: 700;"></span>
+            
+            <div class="modal-size-selector">
+              <h3>Select Size</h3>
+              <div class="modal-size-chips" id="modalSizeChips"></div>
+              <span class="size-error" id="modalSizeError" style="display:none; color: var(--danger); font-size: 13px; margin-top: 8px; font-weight: 700;">Please select a size</span>
+            </div>
+            
+            <div class="modal-specs">
+              <h3>Product Details</h3>
+              <ul>
+                <li><strong>Fit:</strong> <span id="modalProductFit"></span></li>
+                <li><strong>Design:</strong> <span id="modalProductDesign"></span></li>
+                <li><strong>Color:</strong> <span id="modalProductColor"></span></li>
+                <li><strong>Category:</strong> <span id="modalProductCategory"></span></li>
+              </ul>
+            </div>
+            
+            <button class="add-btn" id="modalAddButton">ADD TO BAG</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout-modal" id="checkoutModal" aria-hidden="true">
+      <form class="checkout-form" id="checkoutForm">
+        <div class="drawer-head">
+          <h2>Delivery Details</h2>
+          <button type="button" id="closeCheckout" aria-label="Close checkout">&times;</button>
+        </div>
+        <div class="checkout-fields">
+          <label>
+            <span>Full Name</span>
+            <input name="name" type="text" placeholder="Enter full name" required />
+          </label>
+          <label>
+            <span>Mobile Number</span>
+            <input name="phone" type="tel" placeholder="Enter mobile number" required />
+          </label>
+          <label>
+            <span>Full Address</span>
+            <textarea name="address" rows="3" placeholder="House no, street, area" required></textarea>
+          </label>
+          <div class="field-row">
+            <label>
+              <span>City</span>
+              <input name="city" type="text" placeholder="City" required />
+            </label>
+            <label>
+              <span>Pincode</span>
+              <input name="pincode" type="text" placeholder="Pincode" required />
+            </label>
+          </div>
+          <label>
+            <span>Order Note</span>
+            <textarea name="note" rows="2" placeholder="Size, color, or delivery note"></textarea>
+          </label>
+        </div>
+        <div class="checkout-submit">
+          <button type="submit">SEND ORDER ON WHATSAPP</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="./app.js?v=1.0"></script>
+  </body>
+</html>
