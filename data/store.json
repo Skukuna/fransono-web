@@ -5,8 +5,7 @@
         "t-shirt",
         "shirt",
         "hoodies",
-        "joggers",
-        "jeans"
+        "joggers"
       ],
       "crumb": "Men Clothing",
       "filters": {
@@ -20,8 +19,7 @@
           "T-Shirt",
           "Shirt",
           "Hoodies",
-          "Joggers",
-          "Jeans"
+          "Joggers"
         ],
         "Color": [
           "Black",
@@ -91,10 +89,10 @@
           "image": "store-images/cx1.png",
           "imageName": "cx1.png",
           "isNew": false,
-          "mrp": 999,
+          "mrp": 400,
           "name": "Admin",
           "offer": "Buy 2 for 1199",
-          "price": 499,
+          "price": 400,
           "rating": 4.5,
           "sizes": [
             "XS"
@@ -127,26 +125,50 @@
           "type": "T-Shirt"
         },
         {
-          "id": "m3",
-          "gender": "men",
-          "type": "Hoodies",
-          "category": "Shirt",
+          "active": true,
           "brand": "FRANSONO Air 1.0",
-          "name": "JAI",
-          "imageName": "www.netacad.com_launch_id-b6ee120f-2b52-4a0d-8e4a-e468688a863a-tab-curriculum-view-95d523d2-24ee-5002-abc5-5fc63f7b5d4b.png",
-          "image": "store-images/www.netacad.com_launch_id-b6ee120f-2b52-4a0d-8e4a-e468688a863a-tab-curriculum-view-95d523d2-24ee-5002-abc5-5fc63f7b5d4b.png",
-          "tags": [],
+          "category": "Shirt",
           "color": "Brown",
+          "design": "Solid",
+          "discount": "50% OFF",
+          "fit": "Regular Fit",
+          "gender": "men",
+          "id": "m3",
+          "image": "store-images/www.netacad.com_launch_id-b6ee120f-2b52-4a0d-8e4a-e468688a863a-tab-curriculum-view-95d523d2-24ee-5002-abc5-5fc63f7b5d4b.png",
+          "imageName": "www.netacad.com_launch_id-b6ee120f-2b52-4a0d-8e4a-e468688a863a-tab-curriculum-view-95d523d2-24ee-5002-abc5-5fc63f7b5d4b.png",
+          "isNew": false,
+          "mrp": 999,
+          "name": "JAI",
+          "offer": "Buy 2 for 1199",
+          "price": 499,
+          "rating": 4.5,
           "sizes": [
             "S"
           ],
-          "design": "Solid",
-          "fit": "Regular Fit",
+          "tags": [],
+          "type": "Hoodies"
+        },
+        {
+          "id": "m4",
+          "gender": "men",
+          "type": "T-Shirt",
+          "category": "T-Shirt",
+          "brand": "FRANSONO X Marvel",
+          "name": "JAI89",
+          "imageName": "ROG_pinball_wallpaper_4096x2304.jpg",
+          "image": "store-images/ROG_pinball_wallpaper_4096x2304.jpg",
+          "tags": [],
+          "color": "Black",
+          "sizes": [
+            "XS"
+          ],
+          "design": "Graphic Print",
+          "fit": "Oversized Fit",
           "rating": 4.5,
-          "price": 499,
-          "mrp": 999,
+          "price": 199,
+          "mrp": 400,
           "discount": "50% OFF",
-          "offer": "Buy 2 for 1199",
+          "offer": "",
           "isNew": false,
           "active": true
         }
@@ -223,8 +245,7 @@
           "oversized",
           "green",
           "disney",
-          "orange",
-          "c"
+          "orange"
         ],
         "Type": [
           "T-Shirt",
@@ -242,20 +263,6 @@
   "site": {
     "brandName": "FRANSONO",
     "currency": "INR",
-    "featureCards": [
-      {
-        "text": "Marvel, Disney, anime and pop culture drops",
-        "title": "Official Collabs"
-      },
-      {
-        "text": "Oversized fits, dense cotton and street-ready graphics",
-        "title": "Heavy Duty"
-      },
-      {
-        "text": "Bundle offers and free shipping above ₹399",
-        "title": "Deals Live"
-      }
-    ],
     "freeShippingText": "FREE SHIPPING on all orders above ₹399",
     "homeCards": [
       {
@@ -275,7 +282,7 @@
       {
         "icon": "https://images.bewakoof.com/web/ic-person-solid-black-mweb.png",
         "label": "Products Sold",
-        "value": "10 Crores+"
+        "value": "100 Crores+"
       },
       {
         "icon": "https://images.bewakoof.com/web/ic-bag-solid-black-mweb.png",
