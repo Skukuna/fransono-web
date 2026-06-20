@@ -186,6 +186,16 @@ function renderCollection() {
   const collection = collectionData();
   if (nodes.title) nodes.title.textContent = collection.title;
   if (nodes.crumb) nodes.crumb.textContent = collection.crumb;
+  
+  if (state.query) {
+    if (nodes.search) nodes.search.value = state.query;
+    const mobileSearch = document.querySelector("#mobileSearchInput");
+    if (mobileSearch) mobileSearch.value = state.query;
+  }
+  if (state.sort && nodes.sort) {
+    nodes.sort.value = state.sort;
+  }
+
   renderFilters();
   renderChips();
   renderProducts();
@@ -567,6 +577,156 @@ setInterval(() => {
   ticker.style.transform = `translateX(-${tick * 100}vw)`;
 }, 2600);
 
+function parseQueryParameters() {
+  const params = new URLSearchParams(window.location.search);
+  params.forEach((value, key) => {
+    const lowerKey = key.toLowerCase();
+    if (lowerKey === "category") {
+      const collection = collectionData();
+      if (collection && collection.categories) {
+        const matchedCategory = collection.categories.find(
+          (c) => c.toLowerCase() === value.toLowerCase()
+        );
+        if (matchedCategory) {
+          state.category = matchedCategory;
+        }
+      }
+    } else if (lowerKey === "sort") {
+      state.sort = value;
+    } else if (lowerKey === "query") {
+      state.query = value;
+    } else {
+      const collection = collectionData();
+      if (collection && collection.filters) {
+        const matchedGroup = Object.keys(collection.filters).find(
+          (g) => g.toLowerCase() === lowerKey
+        );
+        if (matchedGroup) {
+          const actualValues = collection.filters[matchedGroup];
+          const parsedValues = value.split(",").map(val => {
+            const matchedVal = actualValues.find(v => v.toLowerCase() === val.trim().toLowerCase());
+            return matchedVal || val;
+          });
+          state.filters[matchedGroup] = parsedValues;
+        }
+      }
+    }
+  });
+}
+
+function initPageTrending() {
+  const track = document.getElementById("trendingTrack");
+  const trackWrapper = document.querySelector(".carousel-track-wrapper");
+  const dotsContainer = document.querySelector("#pageTrendingDots");
+  const slides = track ? track.querySelectorAll(".carousel-slide") : [];
+
+  if (!track || !dotsContainer || !slides.length) return;
+
+  const totalPositions = Math.max(1, slides.length - 3 + 1);
+  let activeIndex = 0;
+  let autoPlayTimer = null;
+
+  function renderDots() {
+    dotsContainer.innerHTML = Array.from({ length: totalPositions }).map((_, index) => `
+      <span class="dot ${index === 0 ? "active" : ""}" data-page="${index}"></span>
+    `).join("");
+
+    const dots = dotsContainer.querySelectorAll(".dot");
+    dots.forEach(dot => {
+      dot.addEventListener("click", () => {
+        activeIndex = parseInt(dot.dataset.page);
+        if (window.innerWidth > 980) {
+          goToPage(activeIndex);
+          resetAutoPlay();
+        } else {
+          const slide = slides[activeIndex];
+          if (slide) {
+            trackWrapper.scrollTo({
+              left: slide.offsetLeft - trackWrapper.offsetLeft,
+              behavior: "smooth"
+            });
+          }
+        }
+      });
+    });
+  }
+
+  function goToPage(index) {
+    if (window.innerWidth > 980) {
+      track.style.transform = `translateX(calc(-${index} * (100% + 24px) / 3))`;
+      
+      const dots = dotsContainer.querySelectorAll(".dot");
+      dots.forEach((dot, idx) => {
+        dot.classList.toggle("active", idx === index);
+      });
+    }
+  }
+
+  function startAutoPlay() {
+    stopAutoPlay();
+    autoPlayTimer = setInterval(() => {
+      if (window.innerWidth > 980) {
+        activeIndex = (activeIndex + 1) % totalPositions;
+        goToPage(activeIndex);
+      }
+    }, 4000);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayTimer) {
+      clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
+    }
+  }
+
+  function resetAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+  }
+
+  // Hover-pause behavior
+  track.addEventListener("mouseenter", stopAutoPlay);
+  track.addEventListener("mouseleave", startAutoPlay);
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 980) {
+      track.style.transform = "";
+      stopAutoPlay();
+    } else {
+      goToPage(activeIndex);
+      startAutoPlay();
+    }
+  });
+
+  trackWrapper.addEventListener("scroll", () => {
+    if (window.innerWidth <= 980) {
+      const scrollLeft = trackWrapper.scrollLeft;
+      let activeSlideIndex = 0;
+      let minDistance = Infinity;
+
+      slides.forEach((slide, index) => {
+        const slideOffset = slide.offsetLeft - trackWrapper.offsetLeft;
+        const distance = Math.abs(slideOffset - scrollLeft);
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeSlideIndex = index;
+        }
+      });
+
+      const dotIndex = Math.min(activeSlideIndex, totalPositions - 1);
+      const dots = dotsContainer.querySelectorAll(".dot");
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("active", index === dotIndex);
+      });
+    }
+  });
+
+  renderDots();
+  if (window.innerWidth > 980) {
+    startAutoPlay();
+  }
+}
+
 async function initStorefront() {
   if (nodes.grid) {
     nodes.grid.innerHTML = `<p class="empty">Loading store data...</p>`;
@@ -584,13 +744,22 @@ async function initStorefront() {
       state.section = "women";
     } else if (pathname.endsWith("/men.html") || pathname.endsWith("/men")) {
       state.section = "men";
+    } else if (pathname.endsWith("/women-collections.html") || pathname.endsWith("/women-collections")) {
+      state.section = "women-collections";
+    } else if (pathname.endsWith("/men-collections.html") || pathname.endsWith("/men-collections")) {
+      state.section = "men-collections";
     } else {
       state.section = "home";
     }
 
     renderSiteSettings();
-    if (state.section !== "home" && nodes.grid) {
-      renderCollection();
+    if (state.section === "men" || state.section === "women") {
+      parseQueryParameters();
+      if (nodes.grid) {
+        renderCollection();
+      }
+    } else if (state.section === "men-collections" || state.section === "women-collections") {
+      initPageTrending();
     }
     renderCart();
     updateWishlistButtonState();

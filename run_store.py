@@ -16,14 +16,37 @@ finally:
     s.close()
 
 class StorefrontHandler(http.server.SimpleHTTPRequestHandler):
+    def rewrite_path(self):
+        print(f"Original path: {self.path}", flush=True)
+        # Get path without query parameters or anchors, and strip trailing slash
+        raw_path = self.path.split('?')[0].split('#')[0]
+        clean_path = raw_path.rstrip('/')
+        print(f"Cleaned path: {clean_path}", flush=True)
+        
+        # Preserve query parameter suffix if present
+        query = ''
+        if '?' in self.path:
+            query = '?' + self.path.split('?', 1)[1]
+            
+        if clean_path == '/men':
+            self.path = '/men.html' + query
+        elif clean_path == '/women':
+            self.path = '/women.html' + query
+        elif clean_path == '/men-collections':
+            self.path = '/men-collections.html' + query
+        elif clean_path == '/women-collections':
+            self.path = '/women-collections.html' + query
+        elif clean_path == '/index':
+            self.path = '/index.html' + query
+        print(f"Rewritten path: {self.path}", flush=True)
+
     def do_GET(self):
-        # Support extensionless routing for static pages /men and /women
-        path = self.path.split('?')[0].split('#')[0]
-        if path == '/men':
-            self.path = '/men.html'
-        elif path == '/women':
-            self.path = '/women.html'
+        self.rewrite_path()
         return super().do_GET()
+
+    def do_HEAD(self):
+        self.rewrite_path()
+        return super().do_HEAD()
 
 print("=" * 60)
 print(f" FRANSONO Storefront Server starting on port {PORT}")
